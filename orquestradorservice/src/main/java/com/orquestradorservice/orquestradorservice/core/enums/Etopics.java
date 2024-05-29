@@ -1,4 +1,4 @@
-package com.orquestradorservice.orquestradorservice;
+package com.orquestradorservice.orquestradorservice.core.enums;
 
 
 import lombok.AllArgsConstructor;

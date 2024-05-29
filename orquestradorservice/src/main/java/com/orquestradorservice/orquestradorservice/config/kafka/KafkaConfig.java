@@ -1,11 +1,14 @@
 package com.orquestradorservice.orquestradorservice.config.kafka;
+import com.orquestradorservice.orquestradorservice.core.enums.Etopics;
 import lombok.RequiredArgsConstructor;
+import org.apache.kafka.clients.admin.NewTopic;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.annotation.EnableKafka;
+import org.springframework.kafka.config.TopicBuilder;
 import org.springframework.kafka.core.*;
 
 import java.util.HashMap;
@@ -15,6 +18,9 @@ import java.util.Map;
 @Configuration
 @RequiredArgsConstructor
 public class KafkaConfig {
+
+    private static final Integer PARTITION_COUNT = 1;
+    private static final Integer REPLICA_COUNT = 1;
 
     @Value("${spring.kafka.bootstrap-servers}")
     private String bootstrapServers;
@@ -53,5 +59,73 @@ public class KafkaConfig {
     @Bean
     public KafkaTemplate<String, String> kafkaTemplate(ProducerFactory<String, String> producerFactory){
         return new KafkaTemplate<>(producerFactory());
+    }
+
+    private NewTopic buildTopic(String name){
+        return TopicBuilder
+                .name(name)
+                .replicas(REPLICA_COUNT)
+                .partitions(PARTITION_COUNT)
+                .build();
+
+    }
+
+    @Bean
+    public NewTopic startSagaTopic(){
+        return buildTopic(Etopics.START_SAGA.getTopic());
+    }
+
+    @Bean
+    public NewTopic orchestratorTopic(){
+        return buildTopic(Etopics.BASE_ORCHESTRATOR.getTopic());
+    }
+
+
+    @Bean
+    public NewTopic finishSucess(){
+        return buildTopic(Etopics.FINISH_SUCESS.getTopic());
+    }
+
+    @Bean
+    public NewTopic finishFail(){
+        return buildTopic(Etopics.FINISH_FAIL.getTopic());
+    }
+
+    @Bean
+    public NewTopic productValidationSucessTopic(){
+        return buildTopic(Etopics.PRODUCT_VALIDATION_SUCESS.getTopic());
+    }
+
+
+    @Bean
+    public NewTopic productValidationFailTopic(){
+        return buildTopic(Etopics.PRODUCT_VALIDATION_FAIL.getTopic());
+    }
+
+
+    @Bean
+    public NewTopic paymentSucessTopic(){
+        return buildTopic(Etopics.PAYMENT_SUCESS.getTopic());
+    }
+
+    @Bean
+    public NewTopic paymentFailTopic(){
+        return buildTopic(Etopics.PAYMENT_FAIL.getTopic());
+    }
+
+    @Bean
+    public NewTopic inventorySucessTopic(){
+        return buildTopic(Etopics.INVENTORY_SUCESS.getTopic());
+    }
+
+
+    @Bean
+    public NewTopic inventoryFailTopic(){
+        return buildTopic(Etopics.INVENTORY_FAIL.getTopic());
+    }
+
+    @Bean
+    public NewTopic notifyEndingSucessTopic(){
+        return buildTopic(Etopics.NOTIFY_ENDING.getTopic());
     }
 }
