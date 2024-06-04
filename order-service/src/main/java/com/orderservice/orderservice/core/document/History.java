@@ -1,4 +1,4 @@
-package com.orderservice.orderservice.core.entity;
+package com.orderservice.orderservice.core.document;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

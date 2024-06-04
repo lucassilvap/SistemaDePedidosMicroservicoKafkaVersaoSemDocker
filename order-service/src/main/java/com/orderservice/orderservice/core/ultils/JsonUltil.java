@@ -1,7 +1,7 @@
 package com.orderservice.orderservice.core.ultils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.orderservice.orderservice.core.entity.Event;
+import com.orderservice.orderservice.core.document.Event;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
