@@ -10,7 +10,7 @@ Em nossa arquitetura, teremos 5 serviços:
 
 [Voltar ao nível anterior](#dados-da-api)
 
-**POST** http://localhost:3000/api/order
+**POST** http://localhost:8090/api/order
 
 Payload:
 
