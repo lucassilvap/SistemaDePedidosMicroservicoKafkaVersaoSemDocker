@@ -1,4 +1,4 @@
-package com.orquestradorservice.orquestradorservice.core.ultil;
+package com.example.servicodevalidacaodeproduto.core.ultils;
 
 import com.orquestradorservice.orquestradorservice.core.dto.Event;
 import lombok.AllArgsConstructor;
