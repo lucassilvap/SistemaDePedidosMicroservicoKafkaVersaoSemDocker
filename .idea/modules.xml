@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/microservico-padrao-saga-orquestrado.iml" filepath="$PROJECT_DIR$/.idea/microservico-padrao-saga-orquestrado.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/SistemaDePedidosMicroservicoKafkaVersaoSemDocker.iml" filepath="$PROJECT_DIR$/.idea/SistemaDePedidosMicroservicoKafkaVersaoSemDocker.iml" />
     </modules>
   </component>
 </project>
