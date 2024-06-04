@@ -16,7 +16,7 @@ Payload:
 
 ```json
 {
-  "products": [
+  "orderProduct": [
     {
       "product": {
         "code": "COMIC_BOOKS",
@@ -40,7 +40,7 @@ Resposta:
 ```json
 {
   "id": "64429e987a8b646915b3735f",
-  "products": [
+  "orderProduct": [
     {
       "product": {
         "code": "COMIC_BOOKS",
