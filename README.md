@@ -59,3 +59,48 @@ Resposta:
   "createdAt": "2023-04-21T14:32:56.335943085",
   "transactionId": "1682087576536_99d2ca6c-f074-41a6-92e0-21700148b519"
 }
+
+**GET** http://localhost:8090/api/event
+Payload:
+```json
+{
+"orderId":"665fae8a094ecc1ef7734980",
+"transactionId":null
+}
+
+Resposta:
+
+```json
+
+{
+    "id": "665fae8a094ecc1ef7734981",
+    "transactionId": "1717546634045_5ca6f892-bbe3-4704-9fcb-469ab5d1176e",
+    "orderId": "665fae8a094ecc1ef7734980",
+    "payload": {
+        "id": "665fae8a094ecc1ef7734980",
+        "products": [
+            {
+                "product": {
+                    "code": "COMIC_BOOKS",
+                    "unitValue": "15.50"
+                },
+                "quantity": 3
+            },
+            {
+                "product": {
+                    "code": "BOOKS",
+                    "unitValue": "9.90"
+                },
+                "quantity": 1
+            }
+        ],
+        "localDateTime": "2024-06-04T21:17:14.045",
+        "transactionId": "1717546634045_5ca6f892-bbe3-4704-9fcb-469ab5d1176e",
+        "totalAmount": 0.0,
+        "totalItems": 0
+    },
+    "source": null,
+    "status": null,
+    "eventHistory": null,
+    "createdAt": "2024-06-04T21:17:14.095"
+}
