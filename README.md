@@ -106,3 +106,76 @@ Resposta:
     "createdAt": "2024-06-04T21:17:14.095"
 }
 ```
+**GET**  http://localhost:8090/api/event/all
+
+Resposta:
+
+```json
+
+[
+    {
+        "id": "665fae8a094ecc1ef7734981",
+        "transactionId": "1717546634045_5ca6f892-bbe3-4704-9fcb-469ab5d1176e",
+        "orderId": "665fae8a094ecc1ef7734980",
+        "payload": {
+            "id": "665fae8a094ecc1ef7734980",
+            "products": [
+                {
+                    "product": {
+                        "code": "COMIC_BOOKS",
+                        "unitValue": "15.50"
+                    },
+                    "quantity": 3
+                },
+                {
+                    "product": {
+                        "code": "BOOKS",
+                        "unitValue": "9.90"
+                    },
+                    "quantity": 1
+                }
+            ],
+            "localDateTime": "2024-06-04T21:17:14.045",
+            "transactionId": "1717546634045_5ca6f892-bbe3-4704-9fcb-469ab5d1176e",
+            "totalAmount": 0.0,
+            "totalItems": 0
+        },
+        "source": null,
+        "status": null,
+        "eventHistory": null,
+        "createdAt": "2024-06-04T21:17:14.095"
+    },
+    {
+        "id": "665f9afc1f3aa7625afe2a8f",
+        "transactionId": "1717541628557_5df8d13a-8076-42db-bea6-0fc81a53e45e",
+        "orderId": "665f9afc1f3aa7625afe2a8e",
+        "payload": {
+            "id": "665f9afc1f3aa7625afe2a8e",
+            "products": [
+                {
+                    "product": {
+                        "code": "COMIC_BOOKS",
+                        "unitValue": "15.50"
+                    },
+                    "quantity": 3
+                },
+                {
+                    "product": {
+                        "code": "BOOKS",
+                        "unitValue": "9.90"
+                    },
+                    "quantity": 1
+                }
+            ],
+            "localDateTime": "2024-06-04T19:53:48.557",
+            "transactionId": "1717541628557_5df8d13a-8076-42db-bea6-0fc81a53e45e",
+            "totalAmount": 0.0,
+            "totalItems": 0
+        },
+        "source": null,
+        "status": null,
+        "eventHistory": null,
+        "createdAt": "2024-06-04T19:53:48.627"
+    }
+]
+```
