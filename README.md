@@ -60,6 +60,7 @@ Resposta:
 ```
 
 **GET** http://localhost:8090/api/event
+
 Payload:
 ```json
 {
