@@ -14,7 +14,7 @@ public class KafkaProducer {
 
    private final KafkaTemplate<String, String> kafkaTemplate;
 
-   @Value("spring.kafka.template.default-topic")
+   @Value("${spring.kafka.template.default-topic}")
    private String orchestratorTopic;
 
    public void sendEvent(String payload){

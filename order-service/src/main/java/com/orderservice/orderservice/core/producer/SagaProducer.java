@@ -14,7 +14,7 @@ public class SagaProducer {
 
    private final KafkaTemplate<String, String> kafkaTemplate;
 
-   @Value("spring.kafka.template.default-topic")
+   @Value("${spring.kafka.template.default-topic}")
    private String startSagaTopic;
 
    public void sendEvent(String payload){
