@@ -13,8 +13,8 @@ public class SagaOrchestractorConsumer {
      private final JsonUltil jsonUltil;
 
      @KafkaListener(
-             groupId = "${spring.kafka.consumer.group-id}",
-             topics = "${spring.kafka.template.default-topic}"
+             groupId ="${spring.kafka.consumer.group-id}",
+             topics ="${spring.kafka.template.default-topic}"
      )
      public void consumerStartSagaEvent(String payload){
            log.info("Receiving event {} from starg-saga topic", payload);

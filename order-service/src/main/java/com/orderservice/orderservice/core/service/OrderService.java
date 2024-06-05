@@ -23,7 +23,6 @@ public class OrderService {
     private final OrderRepository orderRepository;
     private final JsonUltil jsonUltil;
     private final SagaProducer sagaProducer;
-    private final ProducerFactory producerFactory;
     private EventService eventService;
 
 
