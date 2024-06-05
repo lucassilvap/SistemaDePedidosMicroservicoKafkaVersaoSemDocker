@@ -57,6 +57,7 @@ Resposta:
   "createdAt": "2023-04-21T14:32:56.335943085",
   "transactionId": "1682087576536_99d2ca6c-f074-41a6-92e0-21700148b519"
 }
+```
 
 **GET** http://localhost:8090/api/event
 Payload:
