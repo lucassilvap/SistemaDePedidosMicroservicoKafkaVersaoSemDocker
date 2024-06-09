@@ -22,6 +22,7 @@ public class JsonUltil {
         try {
             return objectMapper.readValue(json, Event.class);
         } catch (Exception e){
+            System.out.println(e.getMessage() + " "  + e.getCause());
             return null;
         }
     }

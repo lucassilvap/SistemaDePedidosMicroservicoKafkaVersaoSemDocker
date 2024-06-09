@@ -1,8 +1,8 @@
 package com.example.servicodevalidacaodeproduto.core.enums;
 
 public enum ESagaStatus {
-    SUCESS,
-    ROOBACK_PENDING,
+    SUCCESS,
+    ROLlBACK_PENDING,
     FAIL,
 
 }

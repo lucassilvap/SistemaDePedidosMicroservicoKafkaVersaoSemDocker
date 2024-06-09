@@ -9,6 +9,7 @@ import com.example.servicodevalidacaodeproduto.core.repository.ProductRepository
 import com.example.servicodevalidacaodeproduto.core.repository.ValidationRepository;
 import com.example.servicodevalidacaodeproduto.core.ultils.JsonUltil;
 import com.example.servicodevalidacaodeproduto.core.dto.Event;
+import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -44,7 +45,7 @@ public class ProductValidationService {
     }
 
     private void handleFailCurrentNotExecuted(Event event, String message) {
-        event.setStatus(ESagaStatus.ROOBACK_PENDING);
+        event.setStatus(ESagaStatus.ROLlBACK_PENDING);
         event.setSource(CURRENT_SOURCE);
         addHistory(event,  "fail to validate products ".concat(message));
 
@@ -59,7 +60,7 @@ public class ProductValidationService {
     }
 
     private void changeValidationToFail(Event event) {
-        validationRepository.findByOrderIdAndTransactionId(event.getPayload().getId(), event.getTransactionId())
+        validationRepository.findByOrderIdAndTransactionId(event.getOrder().getId(), event.getTransactionId())
                 .ifPresentOrElse(validation -> {
                             validation.setSucess(false);
                             validationRepository.save(validation);
@@ -70,7 +71,7 @@ public class ProductValidationService {
     }
 
     private void handleSucess(Event event) {
-        event.setStatus(ESagaStatus.SUCESS);
+        event.setStatus(ESagaStatus.SUCCESS);
         event.setSource(CURRENT_SOURCE);
         addHistory(event, "Products validated sucessefuly!");
     }
@@ -88,10 +89,10 @@ public class ProductValidationService {
     }
 
     private void validateProductsInformed(Event event) {
-        if (StringUtils.isEmpty(event.getPayload()) || StringUtils.isEmpty(event.getPayload().getOrderProducts())){
-            throw  new ValidationException("Product list is empaty");
+        if (ObjectUtils.isEmpty(event.getOrder()) || ObjectUtils.isEmpty(event.getOrder().getProducts())){
+            throw  new ValidationException("Product list is empty");
         }
-        if (StringUtils.isEmpty(event.getPayload().getId()) || StringUtils.isEmpty(event.getPayload().getTransactionId())){
+        if (ObjectUtils.isEmpty(event.getOrder().getId()) || ObjectUtils.isEmpty(event.getOrder().getTransactionId())){
             throw  new ValidationException("OrderId and TransactionId must be informed!");
         }
     }
@@ -101,14 +102,14 @@ public class ProductValidationService {
        if (validationRepository.existsByOrderIdAndTransactionId(event.getOrderId(), event.getTransactionId())){
            throw new ValidationException("There is another transactionId for this validation");
        }
-       event.getPayload().getOrderProducts().forEach(product ->{
+       event.getOrder().getProducts().forEach(product ->{
            validateProductInformed(product);
            validateExistingProduct(product.getProduct().getCode());
        });
     }
 
     private void validateProductInformed(OrderProduct orderProduct) {
-        if (StringUtils.isEmpty(orderProduct) || StringUtils.isEmpty(orderProduct.getProduct().getCode())){
+        if (ObjectUtils.isEmpty(orderProduct) || ObjectUtils.isEmpty(orderProduct.getProduct().getCode())){
             throw new ValidationException("Product must be informed!");
         }
     }
@@ -122,7 +123,7 @@ public class ProductValidationService {
     private void createValidation(Event event, boolean sucess){
            var validation = Validation
                    .builder()
-                   .orderId(event.getPayload().getId())
+                   .orderId(event.getOrder().getId())
                    .transactionId(event.getTransactionId())
                    .sucess(sucess)
                    .build();
