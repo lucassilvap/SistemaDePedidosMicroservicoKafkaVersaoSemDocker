@@ -1,14 +1,13 @@
 package com.example.servicodevalidacaodeproduto.core.service;
 import com.example.servicodevalidacaodeproduto.config.exception.ValidationException;
 import com.example.servicodevalidacaodeproduto.core.dto.History;
+import com.example.servicodevalidacaodeproduto.core.dto.OrderProduct;
 import com.example.servicodevalidacaodeproduto.core.entity.Validation;
 import com.example.servicodevalidacaodeproduto.core.enums.ESagaStatus;
 import com.example.servicodevalidacaodeproduto.core.producer.KafkaProducer;
 import com.example.servicodevalidacaodeproduto.core.repository.ProductRepository;
 import com.example.servicodevalidacaodeproduto.core.repository.ValidationRepository;
 import com.example.servicodevalidacaodeproduto.core.ultils.JsonUltil;
-import com.orquestradorservice.orquestradorservice.core.dto.OrderProduct;
-import com.orquestradorservice.orquestradorservice.core.enums.EEventSource;
 import com.example.servicodevalidacaodeproduto.core.dto.Event;
 import org.springframework.util.StringUtils;
 import lombok.AllArgsConstructor;
@@ -45,7 +44,29 @@ public class ProductValidationService {
     }
 
     private void handleFailCurrentNotExecuted(Event event, String message) {
-        
+        event.setStatus(ESagaStatus.ROOBACK_PENDING);
+        event.setSource(CURRENT_SOURCE);
+        addHistory(event,  "fail to validate products ".concat(message));
+
+    }
+
+    public void rollbackEvent(Event event) {
+        changeValidationToFail(event);
+        event.setStatus(ESagaStatus.FAIL);
+        event.setSource(CURRENT_SOURCE);
+        addHistory(event, "rollback executed on product validation!");
+        kafkaProducer.sendEvent(jsonUltil.toJson(event));
+    }
+
+    private void changeValidationToFail(Event event) {
+        validationRepository.findByOrderIdAndTransactionId(event.getPayload().getId(), event.getTransactionId())
+                .ifPresentOrElse(validation -> {
+                            validation.setSucess(false);
+                            validationRepository.save(validation);
+                        },
+                        () -> {
+                            createValidation(event, false);
+                        });
     }
 
     private void handleSucess(Event event) {
