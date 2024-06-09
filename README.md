@@ -2,8 +2,8 @@
 
  Siga para o caminho em que extraiu o kafka C:\kafka_2.13-3.7.0(esse é o meu caso).
 
- .\bin\windows\zookeeper-server-start.bat .\config\zookeeper.properties execute esse primeiro comando. <br>
- .\bin\windows\kafka-server-start.bat .\config\server.properties execute esse segundo comando.
+ .\bin\windows\zookeeper-server-start.bat .\config\zookeeper.properties execute esse primeiro comando no terminal <br>
+ .\bin\windows\kafka-server-start.bat .\config\server.properties execute esse segundo comando no terminal
 
 Em nossa arquitetura, teremos 5 serviços:
 
