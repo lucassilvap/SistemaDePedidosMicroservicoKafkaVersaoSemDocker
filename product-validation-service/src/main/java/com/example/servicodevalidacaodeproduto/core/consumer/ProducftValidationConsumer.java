@@ -22,9 +22,8 @@ public class ProducftValidationConsumer {
     )
     public void consumerSucessEvent(String payload){
         log.info("Receiving event {} from product-validation-sucess topic", payload);
-        Event event1 = jsonUltil.toEvent(payload);
-        System.out.println("AQUI TEM O " + event1.getOrder());
-        productValidationService.validateExistingProducts(event1);
+        var event = jsonUltil.toEvent(payload);
+        productValidationService.validateExistingProducts(event);
     }
 
     @KafkaListener(

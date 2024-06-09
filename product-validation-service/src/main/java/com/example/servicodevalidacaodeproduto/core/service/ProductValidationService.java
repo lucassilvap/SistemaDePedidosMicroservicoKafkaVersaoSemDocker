@@ -10,7 +10,6 @@ import com.example.servicodevalidacaodeproduto.core.repository.ValidationReposit
 import com.example.servicodevalidacaodeproduto.core.ultils.JsonUltil;
 import com.example.servicodevalidacaodeproduto.core.dto.Event;
 import org.springframework.util.ObjectUtils;
-import org.springframework.util.StringUtils;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -37,7 +36,6 @@ public class ProductValidationService {
             handleSucess(event);
 
         }catch (Exception ex){
-
             log.error("Error trying to validate products: ", ex);
             handleFailCurrentNotExecuted(event, ex.getMessage());
         }
