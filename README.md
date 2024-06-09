@@ -1,9 +1,9 @@
-** Baixe o kafka : https://downloads.apache.org/kafka/3.7.0/kafka_2.12-3.7.0.tgz <br>
+**Baixe o kafka : https://downloads.apache.org/kafka/3.7.0/kafka_2.12-3.7.0.tgz <br>
 
-** Siga para o caminho em que extraiu o kafka C:\kafka_2.13-3.7.0(esse é o meu caso) <br>
+**Siga para o caminho em que extraiu o kafka C:\kafka_2.13-3.7.0(esse é o meu caso) <br>
 
-** .\bin\windows\zookeeper-server-start.bat .\config\zookeeper.properties execute esse primeiro comando <br>
-** .\bin\windows\kafka-server-start.bat .\config\server.properties execute esse segundo comando <br>
+**.\bin\windows\zookeeper-server-start.bat .\config\zookeeper.properties execute esse primeiro comando <br>
+**.\bin\windows\kafka-server-start.bat .\config\server.properties execute esse segundo comando <br>
 
 Em nossa arquitetura, teremos 5 serviços:
 
