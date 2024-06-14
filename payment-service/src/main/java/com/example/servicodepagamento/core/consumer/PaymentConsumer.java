@@ -1,7 +1,9 @@
 package com.example.servicodepagamento.core.consumer;
+import com.example.servicodepagamento.core.service.PaymentService;
 import com.example.servicodepagamento.core.ultils.JsonUltil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 
@@ -11,6 +13,7 @@ import org.springframework.stereotype.Component;
 public class PaymentConsumer {
 
     private final JsonUltil jsonUltil;
+    private final PaymentService paymentService;
 
     @KafkaListener(
             groupId = "${spring.kafka.consumer.group-id}",
@@ -20,6 +23,7 @@ public class PaymentConsumer {
         log.info("Receiving event {} from payment-validation-sucess topic", payload);
         var event = jsonUltil.toEvent(payload);
         log.info(event.toString());
+        paymentService.realizePayment(event);
     }
 
     @KafkaListener(
@@ -30,5 +34,6 @@ public class PaymentConsumer {
         log.info("Receiving rollback event {} from payment-validation-fail topic", payload);
         var event = jsonUltil.toEvent(payload);
         log.info(event.toString());
+        paymentService.realizePayment(event);
     }
 }

@@ -2,7 +2,6 @@ package com.example.servicodepagamento.core.entity;
 
 
 import com.example.servicodepagamento.core.enums.EpaymentStatus;
-import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,7 +12,7 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import java.time.LocalDateTime;
 
 @Data
-@EntityScan
+@Entity
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor

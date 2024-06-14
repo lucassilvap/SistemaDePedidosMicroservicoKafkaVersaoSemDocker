@@ -11,6 +11,6 @@ import lombok.NoArgsConstructor;
 public class Product {
 
     private String code;
-    private String unitValue;
+    private Double unitValue;
 
 }

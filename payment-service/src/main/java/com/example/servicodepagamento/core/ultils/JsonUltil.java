@@ -1,6 +1,6 @@
 package com.example.servicodepagamento.core.ultils;
 
-import com.orquestradorservice.orquestradorservice.core.dto.Event;
+import com.example.servicodepagamento.core.dto.Event;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -21,7 +21,7 @@ public class JsonUltil {
 
     public Event toEvent(String json){
         try {
-            return objectMapper.readValue(json, Event.class);
+            return objectMapper.readValue(json, com.example.servicodepagamento.core.dto.Event.class);
         } catch (Exception e){
             return null;
         }
