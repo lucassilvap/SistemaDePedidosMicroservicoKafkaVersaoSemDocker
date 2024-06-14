@@ -12,6 +12,7 @@ import com.example.servicodepagamento.kafka.exception.ValidationException;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
@@ -30,9 +31,13 @@ public class PaymentService {
     private static final String CURRENT_SOURCE = "PAYMENT_SERVICE";
     private static final Double REDUCE_SUM_VALUE =0.0;
     private static final Double MIN_AMOUNT_VALUE = 0.1;
+    @Autowired
     private final JsonUltil jsonUltil;
-    private final KafkaProducer kafkaProducer;
-    private final PaymentRepo paymentRepository;
+
+    @Autowired
+    private KafkaProducer kafkaProducer;
+    @Autowired
+    private PaymentRepo paymentRepository;
 
     private void createPendingPayment(Event event) {
         var totalAmout = calculateAmount(event);
@@ -96,8 +101,10 @@ public class PaymentService {
            handleSucess(event);
         }catch (Exception e){
             log.error("Error trying to make payment", e);
+            log.error(e.getCause().toString());
             handleFailCurrentNotExecuted(event, e.getMessage());
         }
+        assert jsonUltil != null;
         kafkaProducer.sendEvent(jsonUltil.toJson(event));
     }
 
@@ -130,7 +137,9 @@ public class PaymentService {
            event.setStatus(ESagaStatus.FAIL);
            event.setSource(CURRENT_SOURCE);
            addHistory(event, "Rollback executed for payment");
-           kafkaProducer.sendEvent(jsonUltil.toJson(event));
+        assert kafkaProducer != null;
+        assert jsonUltil != null;
+        kafkaProducer.sendEvent(jsonUltil.toJson(event));
     }
 
     private void changePaymentStatusToRefund(Event event) {
