@@ -1,6 +1,5 @@
 package com.example.servicodeinventario.core.ultils;
-
-import com.orquestradorservice.orquestradorservice.core.dto.Event;
+import com.example.servicodeinventario.core.dto.Event;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 import com.fasterxml.jackson.databind.ObjectMapper;

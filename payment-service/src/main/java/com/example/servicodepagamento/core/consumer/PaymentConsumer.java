@@ -23,7 +23,15 @@ public class PaymentConsumer {
         log.info("Receiving event {} from payment-validation-sucess topic", payload);
         var event = jsonUltil.toEvent(payload);
         log.info(event.toString());
-        paymentService.realizePayment(event);
+        try{
+            paymentService.realizePayment(event);
+        }catch (Exception e){
+            Throwable throwable;
+            throwable = e.getCause();
+            if(throwable != null){
+                log.error(e.getCause().toString());
+            }
+        }
     }
 
     @KafkaListener(
@@ -34,6 +42,14 @@ public class PaymentConsumer {
         log.info("Receiving rollback event {} from payment-validation-fail topic", payload);
         var event = jsonUltil.toEvent(payload);
         log.info(event.toString());
-        paymentService.realizePayment(event);
+        try{
+            paymentService.realizeRefund(event);
+        }catch (Exception e){
+            Throwable throwable;
+            throwable = e.getCause();
+            if(throwable != null){
+                log.error(e.getCause().toString());
+            }
+        }
     }
 }
