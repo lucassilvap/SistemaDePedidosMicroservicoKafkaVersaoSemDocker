@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -21,4 +22,11 @@ public class Event {
     private ESagaStatus status;
     private List<History> eventHistory;
     private LocalDateTime createdAt;
+
+    public void addToHistory(History history) {
+        if (eventHistory.isEmpty()) {
+            eventHistory = new ArrayList<>();
+        }
+        eventHistory.add(history);
+    }
 }

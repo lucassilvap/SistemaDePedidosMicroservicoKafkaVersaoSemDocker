@@ -1,7 +1,9 @@
 package com.example.servicodeinventario.core.consumer;
+import com.example.servicodeinventario.core.service.InventoryService;
 import com.example.servicodeinventario.core.ultils.JsonUltil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 
@@ -11,6 +13,8 @@ import org.springframework.stereotype.Component;
 public class InventoryConsumer {
 
     private final JsonUltil jsonUltil;
+    @Autowired
+    private InventoryService inventoryService;
 
     @KafkaListener(
             groupId = "${spring.kafka.consumer.group-id}",
@@ -20,6 +24,7 @@ public class InventoryConsumer {
         log.info("Receiving event {} from   inventory-sucess topic", payload);
         var event = jsonUltil.toEvent(payload);
         log.info(event.toString());
+        inventoryService.updateInventory(event);
     }
 
     @KafkaListener(
@@ -30,5 +35,6 @@ public class InventoryConsumer {
         log.info("Receiving rollback event {} from inventory-fail topic", payload);
         var event = jsonUltil.toEvent(payload);
         log.info(event.toString());
+        inventoryService.rollbackEvent(event);
     }
 }
