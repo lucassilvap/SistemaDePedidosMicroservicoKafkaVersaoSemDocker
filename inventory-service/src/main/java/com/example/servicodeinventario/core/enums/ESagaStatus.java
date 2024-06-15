@@ -1,8 +1,7 @@
 package com.example.servicodeinventario.core.enums;
 
 public enum ESagaStatus {
-    SUCESS,
+    SUCCESS,
     ROOBACK_PENDING,
     FAIL,
-
 }

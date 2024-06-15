@@ -12,7 +12,8 @@ import org.springframework.stereotype.Component;
 @AllArgsConstructor
 public class InventoryConsumer {
 
-    private final JsonUltil jsonUltil;
+    @Autowired
+    private JsonUltil jsonUltil;
     @Autowired
     private InventoryService inventoryService;
 
@@ -23,7 +24,6 @@ public class InventoryConsumer {
     public void consumerSucessEvent(String payload){
         log.info("Receiving event {} from   inventory-sucess topic", payload);
         var event = jsonUltil.toEvent(payload);
-        log.info(event.toString());
         inventoryService.updateInventory(event);
     }
 
@@ -34,7 +34,6 @@ public class InventoryConsumer {
     public void consumerFailEvent(String payload){
         log.info("Receiving rollback event {} from inventory-fail topic", payload);
         var event = jsonUltil.toEvent(payload);
-        log.info(event.toString());
         inventoryService.rollbackEvent(event);
     }
 }

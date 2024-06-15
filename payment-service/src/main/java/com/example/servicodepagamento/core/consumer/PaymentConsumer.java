@@ -44,7 +44,7 @@ public class PaymentConsumer {
         log.info(event.toString());
         try{
             paymentService.realizeRefund(event);
-        }catch (Exception e){
+        }catch(Exception e){
             Throwable throwable;
             throwable = e.getCause();
             if(throwable != null){

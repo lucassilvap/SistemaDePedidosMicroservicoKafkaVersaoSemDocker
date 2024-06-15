@@ -97,7 +97,7 @@ public class InventoryService {
 
     }
     private void handleSucess(Event event){
-        event.setStatus(ESagaStatus.SUCESS);
+        event.setStatus(ESagaStatus.SUCCESS);
         event.setSource(CURRENT_SOURCE);
         addHistory(event, "Inventory update sucess");
     }
@@ -137,11 +137,10 @@ public class InventoryService {
                                event.getTransactionId())
                        .forEach(orderInventory ->{
                            var inventory = orderInventory.getInventory();
-                           inventory.setAvailable(orderInventory.getOrderQuantity());
+                           inventory.setAvailable(orderInventory.getOldQuantity());
                            inventoryRepository.save(inventory);
                            log.info("Restored inventory for order {} from {} to {}", event.getPayload().getId(),
                                    orderInventory.getNewQuantity(), inventory.getAvailable());
-
                        });
 
     }
