@@ -19,7 +19,7 @@ public class InventoryConsumer {
 
     @KafkaListener(
             groupId = "${spring.kafka.consumer.group-id}",
-            topics = "${inventory-sucess.spring.kafka.template.default-topic}"
+            topics = "${inventory-success.spring.kafka.template.default-topic}"
     )
     public void consumerSucessEvent(String payload){
         log.info("##CAI AQUI NO CONSUMER SUCCESS");

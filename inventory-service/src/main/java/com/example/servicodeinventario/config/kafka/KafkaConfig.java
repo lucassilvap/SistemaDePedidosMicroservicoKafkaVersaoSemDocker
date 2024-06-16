@@ -1,4 +1,5 @@
 package com.example.servicodeinventario.config.kafka;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.apache.kafka.clients.admin.NewTopic;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
@@ -17,17 +18,13 @@ import java.util.Map;
 
 @EnableKafka
 @Configuration
-@RequiredArgsConstructor
 public class KafkaConfig {
-
-    private static final Integer PARTITION_COUNT = 1;
-    private static final Integer REPLICA_COUNT = 1;
 
     @Value("${spring.kafka.template.default-topic}")
     private String orchestratorTopic;
 
-    @Value("${inventory-sucess.spring.kafka.template.default-topic}")
-    private String inventorySucessTopic;
+    @Value("${inventory-success.spring.kafka.template.default-topic}")
+    private String inventorySuccessTopic;
 
     @Value("${inventory-fail.spring.kafka.template.default-topic}")
     private String inventoryFailTopic;
@@ -40,6 +37,19 @@ public class KafkaConfig {
 
     @Value("${spring.kafka.consumer.auto-offset-reset}")
     private String autoOffesetReset;
+
+    public KafkaConfig() {
+        this.orchestratorTopic = orchestratorTopic;
+        this.inventorySuccessTopic = inventorySuccessTopic;
+        this.inventoryFailTopic = inventoryFailTopic;
+        this.bootstrapServers = bootstrapServers;
+        this.groupId = groupId;
+        this.autoOffesetReset = autoOffesetReset;
+    }
+
+    private static final Integer PARTITION_COUNT = 1;
+    private static final Integer REPLICA_COUNT = 1;
+
 
     @Bean
     public ConsumerFactory<String, String> consumerFactory(){
@@ -91,7 +101,7 @@ public class KafkaConfig {
 
     @Bean
     public NewTopic paymentSuccessTopic(){
-        return buildTopic(inventorySucessTopic);
+        return buildTopic(inventorySuccessTopic);
     }
 
 
