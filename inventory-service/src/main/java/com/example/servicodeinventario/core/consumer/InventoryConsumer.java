@@ -22,7 +22,8 @@ public class InventoryConsumer {
             topics = "${inventory-sucess.spring.kafka.template.default-topic}"
     )
     public void consumerSucessEvent(String payload){
-        log.info("Receiving event {} from   inventory-sucess topic", payload);
+        log.info("##CAI AQUI NO CONSUMER SUCCESS");
+        log.info("Receiving event {} from   inventory-success topic", payload);
         var event = jsonUltil.toEvent(payload);
         inventoryService.updateInventory(event);
     }

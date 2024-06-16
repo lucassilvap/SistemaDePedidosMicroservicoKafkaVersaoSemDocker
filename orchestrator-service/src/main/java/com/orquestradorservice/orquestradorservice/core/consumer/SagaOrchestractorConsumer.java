@@ -55,10 +55,14 @@ public class SagaOrchestractorConsumer {
             topics = "${topic3.spring.kafka.template.default-topic}"
     )
     public void finishSucess(String payload){
-        log.info("Receiving event {} from finish sucess topic", payload);
-        var event = jsonUltil.toEvent(payload);
-        log.info(event.toString());
-        orchestratorService.finishSagaSucess(event);
+         try{
+             log.info("Receiving event {} from finish sucess topic", payload);
+             var event = jsonUltil.toEvent(payload);
+             log.info(event.toString());
+             orchestratorService.finishSagaSucess(event);
+         }catch (Exception ex) {
+             log.error("###ERROR" + ex.getMessage());
+         }
     }
 
     @KafkaListener(

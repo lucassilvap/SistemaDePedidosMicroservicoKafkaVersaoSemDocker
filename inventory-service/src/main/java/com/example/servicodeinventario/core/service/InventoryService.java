@@ -115,7 +115,7 @@ public class InventoryService {
     }
 
     private void handleFailCurrentNotExecuted(Event event, String message) {
-        event.setStatus(ESagaStatus.ROOBACK_PENDING);
+        event.setStatus(ESagaStatus.ROLLBACK_PENDING);
         event.setSource(CURRENT_SOURCE);
         addHistory(event, "Fail to upadte event ".concat(message));
     }
