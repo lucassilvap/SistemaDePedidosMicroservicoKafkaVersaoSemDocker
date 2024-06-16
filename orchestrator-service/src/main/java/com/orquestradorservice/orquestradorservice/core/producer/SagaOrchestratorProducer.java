@@ -4,6 +4,7 @@ package com.orquestradorservice.orquestradorservice.core.producer;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
@@ -13,7 +14,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class SagaOrchestratorProducer {
 
-   private final KafkaTemplate<String, String> kafkaTemplate;
+    @Autowired
+   private KafkaTemplate<String, String> kafkaTemplate;
 
    public void sendEvent(String payload, String topic){
 

@@ -88,7 +88,7 @@ public class KafkaConfig {
 
     @Bean
     public NewTopic finishSucess(){
-        return buildTopic(Etopics.FINISH_SUCESS.getTopic());
+        return buildTopic(Etopics.FINISH_SUCCESS.getTopic());
     }
 
     @Bean
@@ -98,7 +98,7 @@ public class KafkaConfig {
 
     @Bean
     public NewTopic productValidationSucessTopic(){
-        return buildTopic(Etopics.PRODUCT_VALIDATION_SUCESS.getTopic());
+        return buildTopic(Etopics.PRODUCT_VALIDATION_SUCCESS.getTopic());
     }
 
 
@@ -110,8 +110,8 @@ public class KafkaConfig {
 
     @Bean
     public NewTopic paymentSucessTopic(){
-        return buildTopic(Etopics.PAYMENT_SUCESS.getTopic());
-    }
+        return buildTopic(Etopics.PAYMENT_SUCCESS.getTopic());
+   }
 
     @Bean
     public NewTopic paymentFailTopic(){
@@ -120,7 +120,7 @@ public class KafkaConfig {
 
     @Bean
     public NewTopic inventorySucessTopic(){
-        return buildTopic(Etopics.INVENTORY_SUCESS.getTopic());
+        return buildTopic(Etopics.INVENTORY_SUCCESS.getTopic());
     }
 
 
