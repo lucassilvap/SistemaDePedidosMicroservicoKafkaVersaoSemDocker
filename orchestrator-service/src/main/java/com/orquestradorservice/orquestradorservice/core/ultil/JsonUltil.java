@@ -19,6 +19,7 @@ public class JsonUltil {
         try {
             return objectMapper.writeValueAsString(object);
         }catch (Exception e){
+            log.error("## ERROR {}", e.getMessage());
             return "";
         }
     }

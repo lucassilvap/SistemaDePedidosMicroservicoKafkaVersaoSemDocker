@@ -58,7 +58,7 @@ public class SagaExecutionController {
 
     private String createSagaId(Event event) {
         return format(SAGA_LOG_ID,
-                event.getPayload().getId(), event.getTransactionId(), event.getId());
+                event.getOrder().getId(), event.getTransactionId(), event.getId());
     }
 
 

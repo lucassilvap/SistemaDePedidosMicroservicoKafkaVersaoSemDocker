@@ -12,7 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 public class OrderRequest {
 
-    private List<OrderProduct> orderProduct;
+    private List<OrderProduct> products;
 
 
 }

@@ -29,7 +29,7 @@ import static com.example.servicodepagamento.core.enums.EpaymentStatus.SUCESS;
 public class PaymentService {
 
     private static final String CURRENT_SOURCE = "PAYMENT_SERVICE";
-    private static final Double REDUCE_SUM_VALUE =0.0;
+    private static final Double REDUCE_SUM_VALUE = 0.0;
     private static final Double MIN_AMOUNT_VALUE = 0.1;
     @Autowired
     private final JsonUltil jsonUltil;
@@ -40,12 +40,12 @@ public class PaymentService {
     private PaymentRepo paymentRepository;
 
     private void createPendingPayment(Event event) {
-        var totalAmout = calculateAmount(event);
+        var totalAmount = calculateAmount(event);
         var totalItems = calculateTotalItems(event);
         var payment = Payment.builder()
-                .orderId(event.getPayload().getId())
+                .orderId(event.getOrder().getId())
                 .transactionId(event.getTransactionId())
-                .totalAmount(totalAmout)
+                .totalAmount(totalAmount)
                 .totalItems(totalItems)
                 .build();
         save(payment);
@@ -54,7 +54,7 @@ public class PaymentService {
 
     private double calculateAmount(Event event){
         return event
-                .getPayload()
+                .getOrder()
                 .getOrderProducts()
                 .stream()
                 .map(product -> product.getQuantity() * product.getProduct().getUnitValue())
@@ -63,7 +63,7 @@ public class PaymentService {
 
     private int calculateTotalItems(Event  event){
         return event
-                .getPayload()
+                .getOrder()
                 .getOrderProducts()
                 .stream()
                 .map(OrderProduct::getQuantity)
@@ -71,7 +71,7 @@ public class PaymentService {
     }
 
     private Payment findByOrderIdAndTransactionId(Event event){
-        return paymentRepository.findByOrderIdAndTransactionId(event.getPayload().getId(),
+        return paymentRepository.findByOrderIdAndTransactionId(event.getOrder().getId(),
                 event.getTransactionId()).orElseThrow(() -> new ValidationException("Payment not found" +
                 "by OrderId and TransactionId"));
     }
@@ -81,8 +81,8 @@ public class PaymentService {
     }
 
     private void setEventAmountItems(Event event, Payment payment){
-        event.getPayload().setTotalAmount(payment.getTotalAmount());
-        event.getPayload().setTotalItems(payment.getTotalItems());
+        event.getOrder().setTotalAmount(payment.getTotalAmount());
+        event.getOrder().setTotalItems(payment.getTotalItems());
     }
 
     private void validateAmount(Double amount) {
@@ -109,7 +109,7 @@ public class PaymentService {
     }
 
     private void checkCurrentValidation(Event event) {
-        if (paymentRepository.existsByOrderIdAndTransactionId(event.getPayload().getId(),
+        if (paymentRepository.existsByOrderIdAndTransactionId(event.getOrder().getId(),
                 event.getTransactionId())) {
             throw new ValidationException("There is another transactionId for this validation");
         }
@@ -127,7 +127,7 @@ public class PaymentService {
     }
 
     private void handleFailCurrentNotExecuted(Event event, String message) {
-        event.setStatus(ESagaStatus.ROLlBACK_PENDING);
+        event.setStatus(ESagaStatus.ROLLBACK_PENDING);
         event.setSource(CURRENT_SOURCE);
         addHistory(event, "Fail to realized payment ".concat(message));
     }

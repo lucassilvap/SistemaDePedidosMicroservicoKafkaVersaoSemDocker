@@ -20,7 +20,7 @@ public class Event {
     private String id;
     private String transactionId;
     private String orderId;
-    private Order payload;
+    private Order order;
     private EEventSource source;
     @Enumerated(EnumType.STRING)
     private ESagaStatus status;

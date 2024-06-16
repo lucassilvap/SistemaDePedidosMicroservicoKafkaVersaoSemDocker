@@ -29,7 +29,7 @@ public class OrderService {
      public Order createOrder(OrderRequest orderRequest){
        var order  = Order
                .builder()
-               .products(orderRequest.getOrderProduct())
+               .products(orderRequest.getProducts())
                .localDateTime(LocalDateTime.now())
                .transactionId(
                        String.format(TRANSACTION_ID_PARTERN, Instant.now().toEpochMilli()

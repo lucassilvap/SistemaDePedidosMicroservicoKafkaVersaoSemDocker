@@ -59,8 +59,8 @@ public class EventService {
     }
 
 
-    public Event save(Event event){
-        return eventRepository.save(event);
+    public void save (Event event){
+        eventRepository.save(event);
     }
 
 
