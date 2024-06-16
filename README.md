@@ -5,7 +5,7 @@
  .\bin\windows\zookeeper-server-start.bat .\config\zookeeper.properties execute esse primeiro comando no terminal <br>
  .\bin\windows\kafka-server-start.bat .\config\server.properties execute esse segundo comando no terminal
 
-(https://github.com/lucassilvap/SistemaDePedidosMicroservicoKafkaVersaoSemDocker/assets/92272692/a0e28113-e2cc-4a5e-8423-f53658666a4e)
+ ![Captura de tela 2024-06-16 190934](https://github.com/lucassilvap/SistemaDePedidosMicroservicoKafkaVersaoSemDocker/assets/92272692/a0e28113-e2cc-4a5e-8423-f53658666a4e)
 
 Em nossa arquitetura, teremos 5 serviços:
 
